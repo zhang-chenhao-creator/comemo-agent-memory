@@ -4,9 +4,15 @@
 
 comemo is a Markdown memory layout for coding agents. It gives you a simple three-layer memory system that can be read, installed, and adapted by agents without platform-specific installers.
 
-**Goal:** keep coding-agent memory useful, portable, and compact.
+Goal: help you use agent software more effectively while reducing long-context token cost without lowering output quality.
 
-Built for developers who want reusable agent memory without long-context bloat, hidden sync, or tool-specific lock-in.
+Who this is for:
+
+- People who use coding agents such as Codex, Claude Code, Cursor, Aider, or Gemini CLI across projects.
+- People who want AI to work as a collaborator, not as an external brain that replaces their own thinking.
+- People who worry that long context makes agents slower, more expensive, or less reliable.
+- People who want memory to become reusable principles, not an ever-growing notebook of mistakes or summaries.
+- People who want one Markdown memory system that can move across tools without platform lock-in.
 
 [简体中文](README.zh-CN.md)
 
@@ -47,18 +53,6 @@ The project layer handles the immediate situation. Different projects need diffe
 This matters because an agent does not always need to know who you are, how old you are, or every detail of your long-term goals. A good working partner does not need to know your whole life story before helping with a task. They need the right context at the right time.
 
 Memory capture in comemo is not a thick notebook of past mistakes. It should produce compact collaboration principles. Hard, always-on rules belong in the global layer. Softer preferences and personal background belong in the comemo layer. The judgment standard should be built by the human and the AI together.
-
-## Who This Is For
-
-comemo is for people who want a personal memory system for coding agents without giving up their own judgment.
-
-It is especially useful if you:
-
-- worry that long context makes agents slower, more expensive, or less reliable
-- want agents to work with you instead of silently replacing your own review
-- prefer a small set of durable rules over a large pile of summaries
-- use more than one coding agent and want one portable Markdown memory system
-- want a lightweight system for personal growth, not just task automation
 
 The author built comemo from this exact anxiety: after only a few conversation turns, context already starts to feel heavy. During development, the author would ask Codex to summarize the current state, then challenge Codex when long context led to weak decisions. comemo is the result of that coworking loop: human judgment plus agent assistance, with memory kept lean on purpose.
 

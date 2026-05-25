@@ -6,6 +6,10 @@ comemo is a Markdown memory layout for coding agents. It gives you a simple thre
 
 [简体中文](README.zh-CN.md)
 
+<p align="center">
+  <img src="docs/assets/comemo-three-layer-memory-architecture.svg" alt="comemo three-layer memory architecture" width="900">
+</p>
+
 ## TL;DR
 
 comemo is a portable Markdown memory layout for coding agents.

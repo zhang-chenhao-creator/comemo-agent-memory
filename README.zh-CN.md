@@ -4,6 +4,10 @@
 
 comemo 是一套给 coding agent 用的 Markdown 记忆结构，用来建立可读、可迁移、可维护的协作记忆。
 
+**目标：**让 coding agent 的记忆保持有用、可迁移、足够精简。
+
+适合那些跨项目使用 coding agent，又不想被长上下文、隐藏同步和工具绑定拖住的人。
+
 [English](README.md)
 
 <p align="center">

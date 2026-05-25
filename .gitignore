@@ -1,0 +1,41 @@
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Archives and packages
+*.zip
+*.tar
+*.tar.gz
+*.7z
+
+# Logs and temporary files
+*.log
+*.tmp
+*.bak
+*.backup.*
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.secret
+*.pem
+*.key
+*.p12
+
+# Local cache
+.cache/
+tmp/
+temp/
+
+# Generated local output
+dist/
+build/
+out/

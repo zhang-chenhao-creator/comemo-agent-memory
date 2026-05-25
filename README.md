@@ -100,6 +100,12 @@ The agent should inspect your existing memory files, show the install plan, avoi
 
 If you already use another memory system, comemo should adapt instead of replace it. Existing native files such as `CLAUDE.md`, `GEMINI.md`, `.cursor/rules`, `.cursorrules`, `.aider.conf.yml`, and `AGENTS.override.md` should be left untouched unless you explicitly approve changes.
 
+## Examples and Notes
+
+- [Basic install example](examples/basic-install/README.md)
+- [FAQ](docs/faq.en.md)
+- [AI-assisted development](docs/ai-assisted-development.md)
+
 ## Languages
 
 comemo includes two template sets:
@@ -143,13 +149,19 @@ comemo/
 |-- CHANGELOG.md
 |-- CONTRIBUTING.md
 |-- SECURITY.md
+|-- .github/
+|   |-- pull_request_template.md
+|   `-- ISSUE_TEMPLATE/
 |-- docs/
 |   |-- agent-install.en.md
 |   |-- agent-install.zh-CN.md
 |   |-- compatibility.en.md
 |   |-- compatibility.zh-CN.md
+|   |-- faq.en.md
+|   |-- faq.zh-CN.md
 |   |-- install-checklist.en.md
 |   |-- install-checklist.zh-CN.md
+|   |-- ai-assisted-development.md
 |   `-- release-checklist.md
 |-- templates/
 |   |-- en/
@@ -161,6 +173,7 @@ comemo/
 |   |-- aider/
 |   `-- gemini/
 `-- examples/
+    `-- basic-install/
 ```
 
 ## Non-Goals

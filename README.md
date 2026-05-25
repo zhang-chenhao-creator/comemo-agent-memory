@@ -4,6 +4,10 @@
 
 comemo is a Markdown memory layout for coding agents. It gives you a simple three-layer memory system that can be read, installed, and adapted by agents without platform-specific installers.
 
+**Goal:** keep coding-agent memory useful, portable, and compact.
+
+Built for developers who want reusable agent memory without long-context bloat, hidden sync, or tool-specific lock-in.
+
 [简体中文](README.zh-CN.md)
 
 <p align="center">

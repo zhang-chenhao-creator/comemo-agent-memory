@@ -100,6 +100,12 @@ Agent 应该先检查你的现有记忆文件，展示安装计划，不静默�
 
 如果你已经在用其他记忆系统，comemo 应该适配，而不是替换。已有原生文件，例如 `CLAUDE.md`、`GEMINI.md`、`.cursor/rules`、`.cursorrules`、`.aider.conf.yml` 和 `AGENTS.override.md`，默认应保持不动，除非你明确批准修改。
 
+## 示例和说明
+
+- [基础安装示例](examples/basic-install/README.zh-CN.md)
+- [常见问题](docs/faq.zh-CN.md)
+- [AI 辅助开发说明](docs/ai-assisted-development.md)
+
 ## 语言版本
 
 comemo 内置两套模板：
@@ -143,13 +149,19 @@ comemo/
 |-- CHANGELOG.md
 |-- CONTRIBUTING.md
 |-- SECURITY.md
+|-- .github/
+|   |-- pull_request_template.md
+|   `-- ISSUE_TEMPLATE/
 |-- docs/
 |   |-- agent-install.en.md
 |   |-- agent-install.zh-CN.md
 |   |-- compatibility.en.md
 |   |-- compatibility.zh-CN.md
+|   |-- faq.en.md
+|   |-- faq.zh-CN.md
 |   |-- install-checklist.en.md
 |   |-- install-checklist.zh-CN.md
+|   |-- ai-assisted-development.md
 |   `-- release-checklist.md
 |-- templates/
 |   |-- en/
@@ -161,6 +173,7 @@ comemo/
 |   |-- aider/
 |   `-- gemini/
 `-- examples/
+    `-- basic-install/
 ```
 
 ## 不做什么

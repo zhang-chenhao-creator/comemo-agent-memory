@@ -6,6 +6,10 @@ comemo 是一套给 coding agent 用的 Markdown 记忆结构，用来建立可�
 
 [English](README.md)
 
+<p align="center">
+  <img src="docs/assets/comemo-three-layer-memory-architecture.zh-CN.svg" alt="comemo 三层记忆架构图" width="900">
+</p>
+
 ## 简要说明
 
 comemo 是一套给 coding agent 用的可迁移 Markdown 记忆结构。

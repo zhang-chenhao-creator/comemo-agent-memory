@@ -20,6 +20,14 @@ Recommended paths:
 <project-root>/AGENTS.md
 ```
 
+Optional Claude Code bridge paths:
+
+```text
+~/.claude/CLAUDE.md
+<project-root>/CLAUDE.md
+<project-root>/.claude/CLAUDE.md
+```
+
 `~/comemo/` is only the recommended default. Installers and agents should treat the long-term memory directory as `MEMORY_PATH`, and should preserve a custom path consistently across generated routing tables and adapter notes.
 
 All Markdown files should be treated as UTF-8. English templates use ASCII filenames. Chinese templates use UTF-8 Chinese filenames under `MEMORY_PATH`.
@@ -29,7 +37,7 @@ All Markdown files should be treated as UTF-8. English templates use ASCII filen
 | Agent | Integration type | Notes |
 | --- | --- | --- |
 | Codex | Primary target | Uses `AGENTS.md` directly |
-| Claude Code | Bridge | `CLAUDE.md` imports `AGENTS.md` |
+| Claude Code | Bridge | Uses thin `CLAUDE.md` files to import the shared `AGENTS.md`; project and global bridges use different paths |
 | Cursor | Manual / shared instruction | Uses project `AGENTS.md` as shared project context |
 | Aider | Adapter example | Adds `AGENTS.md` as read-only context |
 | Gemini CLI | Adapter example | Adds `AGENTS.md` to context discovery |
@@ -43,7 +51,7 @@ Last verified: 2026-05-25
 | Tool | Status | Note |
 | --- | --- | --- |
 | Codex | Primary target | Uses `AGENTS.md` as the main instruction file |
-| Claude Code | Bridge example | `CLAUDE.md` imports `AGENTS.md` |
+| Claude Code | Bridge example | Project bridge imports same-directory `AGENTS.md`; global bridge imports the resolved absolute path to `CODEX_HOME/AGENTS.md` |
 | Cursor | Partial / manual | Use `AGENTS.md` as shared project instruction; project rules may need manual setup |
 | Aider | Example adapter | Reads `AGENTS.md` as read-only context |
 | Gemini CLI | Example adapter | Includes `AGENTS.md` in context discovery |
@@ -64,13 +72,23 @@ See `adapters/codex/README.md`.
 
 ### Claude Code
 
-Claude Code commonly uses `CLAUDE.md` as its project instruction file. The adapter keeps `AGENTS.md` as the shared source and adds a `CLAUDE.md` bridge:
+Claude Code reads `CLAUDE.md`, not Codex `AGENTS.md`. comemo therefore keeps `AGENTS.md` as the shared source of truth and uses a thin `CLAUDE.md` bridge.
+
+Project-level bridge, when `CLAUDE.md` and `AGENTS.md` are in the same directory:
 
 ```md
 @AGENTS.md
 ```
 
-See `adapters/claude/CLAUDE.md`.
+Global bridge, when writing to `~/.claude/CLAUDE.md`:
+
+```md
+@/absolute/path/to/.codex/AGENTS.md
+```
+
+Do not use plain `@AGENTS.md` in `~/.claude/CLAUDE.md` unless `AGENTS.md` is also in `~/.claude/`. Relative imports are resolved from the importing file's location.
+
+See `adapters/claude/README.md`.
 
 ### Cursor
 

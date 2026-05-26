@@ -75,10 +75,12 @@ Integration type:
 | Agent | Integration type | Notes |
 | --- | --- | --- |
 | Codex | Primary target | Uses `AGENTS.md` directly |
-| Claude Code | Bridge | `CLAUDE.md` imports `AGENTS.md` |
+| Claude Code | Bridge | Uses thin `CLAUDE.md` files to import the shared `AGENTS.md`; project and global bridges use different paths |
 | Cursor | Manual / shared instruction | Uses project `AGENTS.md` as shared project context |
 | Aider | Adapter example | Adds `AGENTS.md` as read-only context |
 | Gemini CLI | Adapter example | Adds `AGENTS.md` to context discovery |
+
+For Claude Code, do not copy the full comemo template into `CLAUDE.md`. Use a project bridge when `CLAUDE.md` and `AGENTS.md` are in the same directory, or a global bridge with an absolute import from `~/.claude/CLAUDE.md` to the resolved `~/.codex/AGENTS.md` path.
 
 See [Compatibility](docs/compatibility.en.md) for details and limits.
 

@@ -21,6 +21,20 @@
 - [ ] macOS 路径示例已按 `/Users/<user>/...` 理解。
 - [ ] Linux 路径示例已按 `/home/<user>/...` 理解。
 
+## 目标工具判断
+
+- [ ] 已展示当前 Agent 自报类型，并明确该信息只作为参考。
+- [ ] 已确认用户是否指定目标工具，例如 Codex、Claude Code、Cursor、Aider、Gemini CLI 或其他。
+- [ ] 已检查 Codex 相关文件：`CODEX_HOME/AGENTS.md`、`CODEX_HOME/AGENTS.override.md`、`PROJECT_ROOT/AGENTS.md`、`PROJECT_ROOT/AGENTS.override.md`。
+- [ ] 已检查 Claude Code 相关文件：`CLAUDE_HOME/CLAUDE.md`、`PROJECT_ROOT/CLAUDE.md`、`PROJECT_ROOT/.claude/CLAUDE.md`。
+- [ ] 已检查 Cursor 相关文件：`.cursor/rules/`、`.cursorrules`。
+- [ ] 已检查其他 Agent 文件：`.aider.conf.yml`、`GEMINI.md`、`.gemini/`。
+- [ ] 已展示推荐安装目标和需要用户确认的写入路径。
+- [ ] 如果目标工具不明确，未猜测目标工具，已展示检测结果并让用户选择。
+- [ ] 如果检测到多个工具，未迁移、删除或覆盖已有工具原生文件。
+- [ ] 如果检测到多个工具，已保留共享 `AGENTS.md` 作为事实源，并按用户选择安装对应桥接。
+- [ ] Cursor 默认只检测和提示，或提供轻量适配建议；未复制完整 comemo 模板进 `.cursor/rules/` 或 `.cursorrules`。
+
 ## 现有系统检测
 
 - [ ] 已检查 `CODEX_HOME/AGENTS.override.md` 或 `CODEX_HOME/AGENTS.md` 是否存在。

@@ -91,6 +91,49 @@ Linux CLAUDE_HOME: /home/<user>/.claude
 Linux MEMORY_PATH: /home/<user>/comemo
 ```
 
+## 2.1 Determine Current Target Tool
+
+Before installation, the Agent should determine the current target tool it is serving, but it must not rely only on self-reported identity.
+
+Use these signals:
+
+- Current Agent self-reported type: Codex, Claude Code, Cursor, Aider, Gemini CLI, or other. This information is only a reference.
+- The target tool explicitly requested by the user.
+- Existing tool paths and files:
+  - `CODEX_HOME/AGENTS.md`
+  - `CODEX_HOME/AGENTS.override.md`
+  - `CLAUDE_HOME/CLAUDE.md`
+  - `PROJECT_ROOT/AGENTS.md`
+  - `PROJECT_ROOT/AGENTS.override.md`
+  - `PROJECT_ROOT/CLAUDE.md`
+  - `PROJECT_ROOT/.claude/CLAUDE.md`
+  - `.cursor/rules/`
+  - `.cursorrules`
+  - `.aider.conf.yml`
+  - `GEMINI.md`
+  - `.gemini/`
+
+The Agent's self-reported software type must not be the only basis. The final installation target must be based on user confirmation and actual file paths.
+
+If the target tool is unclear, do not guess. Show the detection results and ask the user to choose the target tool and write locations.
+
+If multiple tools are detected, do not migrate, delete, or overwrite any existing tool-native files. Keep the shared `AGENTS.md` as the source of truth, then install the corresponding bridge according to the user's choice.
+
+For Cursor, the default behavior is detection and prompting, or lightweight adaptation suggestions. Do not copy the full comemo template into `.cursor/rules/` or `.cursorrules`.
+
+Before installation, show:
+
+```text
+Current Agent self-reported type:
+User-specified target tool:
+Detected Codex files:
+Detected Claude Code files:
+Detected Cursor files:
+Detected other Agent files:
+Recommended install target:
+Writes requiring user confirmation:
+```
+
 ## 3. Inspect Existing Memory System
 
 Before writing anything, inspect and show the current state:

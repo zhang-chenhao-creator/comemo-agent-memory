@@ -5,6 +5,7 @@
 - [ ] 已确认 `LANGUAGE` 为 `zh-CN`。
 - [ ] 已确认中文模板内容和中文 comemo 文件名同步使用。
 - [ ] 已确认 `CODEX_HOME`，默认建议为 `~/.codex`。
+- [ ] 如需要 Claude Code 支持，已确认 `CLAUDE_HOME`，默认建议为 `~/.claude`。
 - [ ] 已确认 `MEMORY_PATH`，默认建议为 `~/comemo`。
 - [ ] 如选择自定义 `MEMORY_PATH`，已确认生成的路由表和适配器说明都一致使用该路径。
 - [ ] 已确认 `PROJECT_ROOT`。
@@ -23,7 +24,9 @@
 ## 现有系统检测
 
 - [ ] 已检查 `CODEX_HOME/AGENTS.override.md` 或 `CODEX_HOME/AGENTS.md` 是否存在。
+- [ ] 如需要 Claude Code 支持，已检查 `CLAUDE_HOME/CLAUDE.md` 是否存在。
 - [ ] 已检查 `PROJECT_ROOT/AGENTS.override.md` 或 `PROJECT_ROOT/AGENTS.md` 是否存在。
+- [ ] 已检查 `PROJECT_ROOT/CLAUDE.md` 或 `PROJECT_ROOT/.claude/CLAUDE.md` 是否存在。
 - [ ] 已检查 `MEMORY_PATH` 是否存在。
 - [ ] 已列出已存在的 comemo 文件。
 - [ ] 已列出缺失的 comemo 文件。
@@ -41,6 +44,15 @@
 - [ ] 已按安装模式创建 `MEMORY_PATH/能力.md`。
 - [ ] 已按安装模式创建 `MEMORY_PATH/经验.md`。
 - [ ] 已按安装模式创建 `MEMORY_PATH/身份.md`。
+- [ ] 如用户选择，已安装 Claude Code 全局桥接或项目级桥接。
+
+## Claude Code 桥接检查
+
+- [ ] 全局桥接保持轻量，没有复制完整 comemo 模板。
+- [ ] 如安装 `CLAUDE_HOME/CLAUDE.md`，它导入的是解析后的 `CODEX_HOME/AGENTS.md` 绝对路径。
+- [ ] 除非 `AGENTS.md` 也在 `CLAUDE_HOME`，否则 `CLAUDE_HOME/CLAUDE.md` 不应使用普通 `@AGENTS.md`。
+- [ ] 如项目级 `CLAUDE.md` 使用 `@AGENTS.md`，它应与 `AGENTS.md` 位于同一目录。
+- [ ] 已有有用的 Claude 专属规则被保留，或作为合并建议展示。
 
 ## 安全确认
 
@@ -56,3 +68,4 @@
 - [ ] 项目层明确项目事实和实验记录写入项目目录。
 - [ ] 长期记忆层只放跨项目长期有效信息。
 - [ ] 已向用户说明被跳过的已有文件和必要的合并建议。
+- [ ] 已向用户说明是否安装了 Claude Code 桥接文件，以及它是全局桥接还是项目级桥接。

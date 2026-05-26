@@ -61,11 +61,17 @@ The directory name `comemo` is the recommended default for all languages. The fi
 Ask for or infer these values:
 
 - `CODEX_HOME`: default `~/.codex`
+- `CLAUDE_HOME`: default `~/.claude`, only when Claude Code support is requested or detected
 - `MEMORY_PATH`: default `~/comemo`
 - `PROJECT_ROOT`: the current project root
 - `PROJECT_NAME`: the current project name
 - `DATE`: today's date in `YYYY-MM-DD`
 - `LANGUAGE`: `zh-CN` or `en`
+
+Derived Claude Code bridge targets:
+
+- `CLAUDE_GLOBAL`: `CLAUDE_HOME/CLAUDE.md`
+- `CLAUDE_PROJECT`: `PROJECT_ROOT/CLAUDE.md` or `PROJECT_ROOT/.claude/CLAUDE.md`
 
 If the user chooses a custom `MEMORY_PATH`, use that exact path everywhere: template placeholder replacement, routing tables, verification, and adapter notes. Do not hardcode `~/comemo` after path resolution.
 
@@ -73,12 +79,15 @@ Cross-platform examples:
 
 ```text
 Windows CODEX_HOME: C:\Users\<user>\.codex
+Windows CLAUDE_HOME: C:\Users\<user>\.claude
 Windows MEMORY_PATH: C:\Users\<user>\comemo
 
 macOS CODEX_HOME: /Users/<user>/.codex
+macOS CLAUDE_HOME: /Users/<user>/.claude
 macOS MEMORY_PATH: /Users/<user>/comemo
 
 Linux CODEX_HOME: /home/<user>/.codex
+Linux CLAUDE_HOME: /home/<user>/.claude
 Linux MEMORY_PATH: /home/<user>/comemo
 ```
 
@@ -87,7 +96,9 @@ Linux MEMORY_PATH: /home/<user>/comemo
 Before writing anything, inspect and show the current state:
 
 - Whether `CODEX_HOME/AGENTS.override.md` or `CODEX_HOME/AGENTS.md` exists.
+- Whether `CLAUDE_HOME/CLAUDE.md` exists.
 - Whether `PROJECT_ROOT/AGENTS.override.md` or `PROJECT_ROOT/AGENTS.md` exists.
+- Whether `PROJECT_ROOT/CLAUDE.md` or `PROJECT_ROOT/.claude/CLAUDE.md` exists.
 - Whether `MEMORY_PATH` exists.
 - Which expected comemo files already exist.
 - Which expected comemo files are missing.
@@ -127,16 +138,18 @@ If the environment is empty:
 If an existing memory system is detected, show the current architecture first, then ask the user to choose:
 
 1. Installation adaptation: create only missing files and provide merge suggestions for existing files. This is the recommended default.
-2. Custom installation: user chooses which layers to install, such as global layer only, project layer only, comemo layer only, or preview only.
+2. Custom installation: user chooses which layers to install, such as global layer only, project layer only, comemo layer only, Claude Code bridge only, or preview only.
 3. Replace existing files: only after explicit confirmation; back up every replaced file as `.backup.YYYY-MM-DD`.
 
 Do not replace existing `AGENTS.md` or comemo files during installation adaptation.
 
 If a tool-native memory system exists, prefer a bridge instead of migration:
 
-- Keep native files thin and point them to the shared project `AGENTS.md` when the tool supports imports or read-only context files.
+- Keep native files thin and point them to the shared `AGENTS.md` when the tool supports imports or read-only context files.
 - Do not copy the full comemo template into `CLAUDE.md`, `GEMINI.md`, `.cursor/rules`, or `.aider.conf.yml`.
 - If the native file already contains useful rules, leave it in place and provide merge suggestions instead of rewriting it.
+- For Claude Code project-level bridges, `@AGENTS.md` is valid only when the installed `CLAUDE.md` and `AGENTS.md` are in the same directory.
+- For Claude Code global bridges at `CLAUDE_HOME/CLAUDE.md`, use an absolute import to the resolved `CODEX_HOME/AGENTS.md`. Do not install `@AGENTS.md` as-is unless `AGENTS.md` is also in `CLAUDE_HOME`.
 - If `AGENTS.override.md` exists, treat it as higher priority than `AGENTS.md`; do not create a competing `AGENTS.md` at the same scope without explaining the precedence.
 
 ## 5. Target File List
@@ -148,6 +161,14 @@ CODEX_HOME/AGENTS.md
 ```
 
 If `CODEX_HOME/AGENTS.override.md` already exists, do not assume `CODEX_HOME/AGENTS.md` will be effective. Explain the precedence and ask whether the user wants to leave global comemo uninstalled, add merge suggestions for the override file, or explicitly install `AGENTS.md` as a lower-priority reference.
+
+Optional Claude Code global bridge:
+
+```text
+CLAUDE_HOME/CLAUDE.md
+```
+
+This file should stay thin. It should import the resolved absolute path to `CODEX_HOME/AGENTS.md`; it should not duplicate the full comemo template.
 
 Long-term memory layer:
 
@@ -163,6 +184,15 @@ PROJECT_ROOT/AGENTS.md
 
 If `PROJECT_ROOT/AGENTS.override.md` already exists, use the same rule: explain the precedence before creating `PROJECT_ROOT/AGENTS.md`, and do not edit the override file without explicit confirmation.
 
+Optional Claude Code project bridge:
+
+```text
+PROJECT_ROOT/CLAUDE.md
+PROJECT_ROOT/.claude/CLAUDE.md
+```
+
+Choose only one project bridge target unless the user explicitly asks for both. Use `PROJECT_ROOT/CLAUDE.md` by default for the simplest layout.
+
 ## 6. Copy Templates
 
 Copy and replace placeholders:
@@ -173,7 +203,14 @@ Copy and replace placeholders:
 | `templates/<LANGUAGE>/AGENTS.project.template.md` | `PROJECT_ROOT/AGENTS.md` |
 | `templates/<LANGUAGE>/comemo/*` | `MEMORY_PATH/*` |
 
-Replace these placeholders in every copied file:
+Optional Claude Code bridge files:
+
+| Source | Target | Required edit |
+| --- | --- | --- |
+| `adapters/claude/CLAUDE.global.md` | `CLAUDE_HOME/CLAUDE.md` | Replace the placeholder import with the resolved absolute path to `CODEX_HOME/AGENTS.md`. |
+| `adapters/claude/CLAUDE.project.md` | `PROJECT_ROOT/CLAUDE.md` or `PROJECT_ROOT/.claude/CLAUDE.md` | Use only when `AGENTS.md` is in the same directory as the installed `CLAUDE.md`. |
+
+Replace these placeholders in every copied comemo template file:
 
 - `{{CODEX_HOME}}`
 - `{{MEMORY_PATH}}`
@@ -193,6 +230,8 @@ Read every installed or changed target file and check:
 - No `{{...}}` placeholder remains.
 - `CODEX_HOME/AGENTS.md`, if installed or replaced, contains the memory candidate confirmation rule.
 - `PROJECT_ROOT/AGENTS.md`, if installed or replaced, says project facts, records, parameters, data, results, conclusions, and next steps belong in the project directory.
+- `CLAUDE_HOME/CLAUDE.md`, if installed, imports the resolved absolute path to `CODEX_HOME/AGENTS.md`, not plain `@AGENTS.md` unless `AGENTS.md` is also in `CLAUDE_HOME`.
+- Project-level `CLAUDE.md`, if installed, either sits next to `AGENTS.md` and uses `@AGENTS.md`, or uses an explicit path that resolves correctly.
 - `MEMORY_PATH` is named `comemo` by default unless the user chose another path.
 - For `zh-CN`, Chinese comemo filenames can be read correctly after extraction.
 - For `en`, English comemo filenames match the English routing table.
@@ -210,5 +249,6 @@ After verification, tell the user:
 - Which files were skipped because they already existed.
 - Which existing files were backed up, if any.
 - Any merge suggestions for existing files.
+- Whether Claude Code bridge files were installed, and whether they are global or project-level.
 - That future "remember this" requests should be handled as memory candidates first, not written silently.
 - That project facts and experiment records should be written into the project directory, not global memory.

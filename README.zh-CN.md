@@ -75,10 +75,12 @@ comemo 设计上适配 Windows、macOS、Linux。
 | Agent | 集成方式 | 说明 |
 | --- | --- | --- |
 | Codex | 主要目标 | 直接使用 `AGENTS.md` |
-| Claude Code | 桥接 | 用 `CLAUDE.md` 导入 `AGENTS.md` |
+| Claude Code | 桥接 | 用轻量 `CLAUDE.md` 导入共享 `AGENTS.md`；项目级和全局桥接使用不同路径 |
 | Cursor | 手动 / 共享项目规则 | 使用项目级 `AGENTS.md` 作为共享上下文 |
 | Aider | adapter 示例 | 把 `AGENTS.md` 加为只读上下文 |
 | Gemini CLI | adapter 示例 | 把 `AGENTS.md` 加入上下文发现范围 |
+
+Claude Code 不应复制完整 comemo 模板到 `CLAUDE.md`。当 `CLAUDE.md` 和 `AGENTS.md` 在同一目录时使用项目级桥接；当写入 `~/.claude/CLAUDE.md` 时，使用绝对路径导入解析后的 `~/.codex/AGENTS.md`。
 
 具体边界见 [兼容性说明](docs/compatibility.zh-CN.md)。
 
@@ -180,15 +182,15 @@ comemo/
 
 ## 不做什么
 
-comemo 不提供：
+comemo 不包含：
 
 - 平台专用安装器
 - 自动迁移脚本
-- 后台同步
-- 每个工具各维护一套重复记忆
+- 隐藏后台同步
+- 工具专属的重复记忆系统
 
-适配器只做轻量桥接。共享事实源仍然是 Markdown。
+adapter 刻意保持轻量。共享事实源仍然是 Markdown。
 
-## 协议
+## 许可证
 
-MIT License。见 [LICENSE](LICENSE)。
+MIT License. 见 [LICENSE](LICENSE)。

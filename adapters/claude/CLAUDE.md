@@ -1,8 +1,17 @@
 @AGENTS.md
 
-# Claude Code Adapter
+# Claude Code Project Adapter
 
-Use `AGENTS.md` as the shared project instruction source.
+This file is kept as the default project-level Claude Code adapter.
+
+Use it only when the installed `CLAUDE.md` and `AGENTS.md` are in the same directory, for example:
+
+```text
+<project-root>/CLAUDE.md
+<project-root>/AGENTS.md
+```
+
+For a global Claude Code bridge at `~/.claude/CLAUDE.md`, do not use `@AGENTS.md` as-is. Use `adapters/claude/CLAUDE.global.md` and replace its import with the resolved absolute path to `CODEX_HOME/AGENTS.md`.
 
 ## Claude-Specific Notes
 

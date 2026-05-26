@@ -20,6 +20,14 @@ Linux: /home/<user>
 <project-root>/AGENTS.md
 ```
 
+可选 Claude Code 桥接路径：
+
+```text
+~/.claude/CLAUDE.md
+<project-root>/CLAUDE.md
+<project-root>/.claude/CLAUDE.md
+```
+
 `~/comemo/` 只是推荐默认值。安装器和 Agent 应把长期记忆目录视为 `MEMORY_PATH`，如果用户选择自定义路径，生成的路由表和适配器说明都要保持一致。
 
 所有 Markdown 文件按 UTF-8 处理。英文模板使用 ASCII 文件名。中文模板在 `MEMORY_PATH` 下使用 UTF-8 中文文件名。
@@ -29,7 +37,7 @@ Linux: /home/<user>
 | Agent | 集成方式 | 说明 |
 | --- | --- | --- |
 | Codex | 主要目标 | 直接使用 `AGENTS.md` |
-| Claude Code | 桥接 | 用 `CLAUDE.md` 导入 `AGENTS.md` |
+| Claude Code | 桥接 | 用轻量 `CLAUDE.md` 导入共享 `AGENTS.md`；项目级和全局桥接使用不同路径 |
 | Cursor | 手动 / 共享项目规则 | 使用项目级 `AGENTS.md` 作为共享上下文 |
 | Aider | adapter 示例 | 把 `AGENTS.md` 加为只读上下文 |
 | Gemini CLI | adapter 示例 | 把 `AGENTS.md` 加入上下文发现范围 |
@@ -43,7 +51,7 @@ Last verified: 2026-05-25
 | Tool | Status | Note |
 | --- | --- | --- |
 | Codex | Primary target | 使用 `AGENTS.md` 作为主要指令文件 |
-| Claude Code | Bridge example | `CLAUDE.md` 导入 `AGENTS.md` |
+| Claude Code | Bridge example | 项目级桥接导入同目录 `AGENTS.md`；全局桥接导入解析后的 `CODEX_HOME/AGENTS.md` 绝对路径 |
 | Cursor | Partial / manual | 使用 `AGENTS.md` 作为共享项目指令；项目规则可能需要手动设置 |
 | Aider | Example adapter | 把 `AGENTS.md` 作为只读上下文读取 |
 | Gemini CLI | Example adapter | 把 `AGENTS.md` 加入上下文发现范围 |
@@ -64,13 +72,23 @@ MEMORY_PATH/
 
 ### Claude Code
 
-Claude Code 通常使用 `CLAUDE.md` 作为项目指令文件。适配器保持 `AGENTS.md` 作为共享事实源，只增加一个 `CLAUDE.md` 桥接：
+Claude Code 读取 `CLAUDE.md`，不是 Codex 的 `AGENTS.md`。因此 comemo 保持 `AGENTS.md` 作为共享事实源，再用轻量 `CLAUDE.md` 做桥接。
+
+项目级桥接，适用于 `CLAUDE.md` 与 `AGENTS.md` 在同一目录：
 
 ```md
 @AGENTS.md
 ```
 
-见 `adapters/claude/CLAUDE.md`。
+全局桥接，适用于写入 `~/.claude/CLAUDE.md`：
+
+```md
+@/absolute/path/to/.codex/AGENTS.md
+```
+
+除非 `AGENTS.md` 也在 `~/.claude/`，否则不要在 `~/.claude/CLAUDE.md` 里直接使用 `@AGENTS.md`。相对导入应按导入文件所在位置解析。
+
+见 `adapters/claude/README.md`。
 
 ### Cursor
 

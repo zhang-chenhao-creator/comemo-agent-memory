@@ -5,6 +5,7 @@
 - [ ] `LANGUAGE` is confirmed as `en`.
 - [ ] English template content and English comemo filenames are used together.
 - [ ] `CODEX_HOME` is confirmed. The recommended default is `~/.codex`.
+- [ ] If Claude Code support is requested or detected, `CLAUDE_HOME` is confirmed. The recommended default is `~/.claude`.
 - [ ] `MEMORY_PATH` is confirmed. The recommended default is `~/comemo`.
 - [ ] If a custom `MEMORY_PATH` is selected, generated routes and adapter notes use that path consistently.
 - [ ] `PROJECT_ROOT` is confirmed.
@@ -23,7 +24,9 @@
 ## Existing System Detection
 
 - [ ] Checked whether `CODEX_HOME/AGENTS.override.md` or `CODEX_HOME/AGENTS.md` exists.
+- [ ] Checked whether `CLAUDE_HOME/CLAUDE.md` exists when Claude Code support is requested or detected.
 - [ ] Checked whether `PROJECT_ROOT/AGENTS.override.md` or `PROJECT_ROOT/AGENTS.md` exists.
+- [ ] Checked whether `PROJECT_ROOT/CLAUDE.md` or `PROJECT_ROOT/.claude/CLAUDE.md` exists.
 - [ ] Checked whether `MEMORY_PATH` exists.
 - [ ] Listed existing comemo files.
 - [ ] Listed missing comemo files.
@@ -41,6 +44,16 @@
 - [ ] `MEMORY_PATH/ability.md` was created according to the selected install mode.
 - [ ] `MEMORY_PATH/experience.md` was created according to the selected install mode.
 - [ ] `MEMORY_PATH/identity.md` was created according to the selected install mode.
+- [ ] If selected, `CLAUDE_HOME/CLAUDE.md` was installed as a global Claude Code bridge.
+- [ ] If selected, exactly one project-level Claude Code bridge was installed at `PROJECT_ROOT/CLAUDE.md` or `PROJECT_ROOT/.claude/CLAUDE.md`, unless the user explicitly requested both.
+
+## Claude Code Bridge Checks
+
+- [ ] The global Claude Code bridge stays thin and does not duplicate the full comemo template.
+- [ ] `CLAUDE_HOME/CLAUDE.md`, if installed, imports the resolved absolute path to `CODEX_HOME/AGENTS.md`.
+- [ ] `CLAUDE_HOME/CLAUDE.md` does not use plain `@AGENTS.md` unless `AGENTS.md` is also in `CLAUDE_HOME`.
+- [ ] Project-level `CLAUDE.md`, if installed with `@AGENTS.md`, is in the same directory as `AGENTS.md`.
+- [ ] Existing useful Claude-specific rules were preserved or presented as merge suggestions instead of being overwritten silently.
 
 ## Safety Checks
 
@@ -56,3 +69,4 @@
 - [ ] The project layer says project facts and experiment records belong in the project directory.
 - [ ] The long-term memory layer only stores durable cross-project information.
 - [ ] The user was told which existing files were skipped and which merge suggestions apply.
+- [ ] The user was told whether Claude Code bridge files were installed and whether they are global or project-level.

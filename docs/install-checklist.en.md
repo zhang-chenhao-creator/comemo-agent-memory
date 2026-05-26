@@ -21,6 +21,20 @@
 - [ ] macOS paths are understood as `/Users/<user>/...`.
 - [ ] Linux paths are understood as `/home/<user>/...`.
 
+## Target Tool Determination
+
+- [ ] The current Agent self-reported type has been shown, and it is clear that this information is only a reference.
+- [ ] Confirmed whether the user specified a target tool, such as Codex, Claude Code, Cursor, Aider, Gemini CLI, or other.
+- [ ] Checked Codex-related files: `CODEX_HOME/AGENTS.md`, `CODEX_HOME/AGENTS.override.md`, `PROJECT_ROOT/AGENTS.md`, and `PROJECT_ROOT/AGENTS.override.md`.
+- [ ] Checked Claude Code-related files: `CLAUDE_HOME/CLAUDE.md`, `PROJECT_ROOT/CLAUDE.md`, and `PROJECT_ROOT/.claude/CLAUDE.md`.
+- [ ] Checked Cursor-related files: `.cursor/rules/` and `.cursorrules`.
+- [ ] Checked other Agent files: `.aider.conf.yml`, `GEMINI.md`, and `.gemini/`.
+- [ ] Shown the recommended install target and write paths requiring user confirmation.
+- [ ] If the target tool was unclear, no target tool was guessed; detection results were shown and the user selected one.
+- [ ] If multiple tools were detected, no existing tool-native files were migrated, deleted, or overwritten.
+- [ ] If multiple tools were detected, the shared `AGENTS.md` was kept as the source of truth, and the corresponding bridge was installed according to the user's choice.
+- [ ] Cursor defaults to detection and prompting, or lightweight adaptation suggestions; the full comemo template was not copied into `.cursor/rules/` or `.cursorrules`.
+
 ## Existing System Detection
 
 - [ ] Checked whether `CODEX_HOME/AGENTS.override.md` or `CODEX_HOME/AGENTS.md` exists.

@@ -89,6 +89,49 @@ Linux CLAUDE_HOME: /home/<user>/.claude
 Linux MEMORY_PATH: /home/<user>/comemo
 ```
 
+## 2.1 判断当前目标工具
+
+安装前，Agent 应判断当前正在服务的目标工具，但不能只依赖自报身份。
+
+判断依据包括：
+
+- 当前 Agent 自报类型：Codex、Claude Code、Cursor、Aider、Gemini CLI 或其他。该信息只作为参考。
+- 用户当前明确要求的目标工具。
+- 已存在的工具路径和文件：
+  - `CODEX_HOME/AGENTS.md`
+  - `CODEX_HOME/AGENTS.override.md`
+  - `CLAUDE_HOME/CLAUDE.md`
+  - `PROJECT_ROOT/AGENTS.md`
+  - `PROJECT_ROOT/AGENTS.override.md`
+  - `PROJECT_ROOT/CLAUDE.md`
+  - `PROJECT_ROOT/.claude/CLAUDE.md`
+  - `.cursor/rules/`
+  - `.cursorrules`
+  - `.aider.conf.yml`
+  - `GEMINI.md`
+  - `.gemini/`
+
+Agent 自报的软件类型不能作为唯一依据。最终安装目标必须以用户确认和实际文件路径为准。
+
+如果目标工具不明确，不要猜测。展示检测结果，让用户选择目标工具和写入位置。
+
+如果检测到多个工具，不迁移、不删除、不覆盖任何已有工具原生文件。保留共享 `AGENTS.md` 作为事实源，再按用户选择安装对应桥接。
+
+Cursor 默认只检测和提示，或给出轻量适配建议。不要把完整 comemo 模板复制进 `.cursor/rules/` 或 `.cursorrules`。
+
+安装前必须展示：
+
+```text
+当前 Agent 自报类型：
+用户指定目标工具：
+检测到的 Codex 文件：
+检测到的 Claude Code 文件：
+检测到的 Cursor 文件：
+检测到的其他 Agent 文件：
+推荐安装目标：
+需要用户确认的写入：
+```
+
 ## 3. 检查现有记忆系统
 
 写入任何文件前，先检查并展示当前状态：
